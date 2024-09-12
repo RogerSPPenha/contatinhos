@@ -65,6 +65,8 @@ export const styles = StyleSheet.create({
         fontFamily:theme.fontFamily.medium,
         color: theme.colors.gray_400,
     },
-
+    phone: {
+        
+    }
 
 })

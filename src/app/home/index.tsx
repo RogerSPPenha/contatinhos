@@ -10,6 +10,7 @@ import BottomSheet from "@gorhom/bottom-sheet";
 import bottomSheet from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheet";
 import { Avatar } from "../components/avatar";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { Button } from "../components/button";
 
 
 
@@ -108,7 +109,7 @@ export function Home() {
                 handleComponent={() => null}
                 backgroundStyle={styles.bottomSheet}
                 >
-                    <Avatar name={contact.name} image={contact.image} variant="large" containerStyle={undefined}/>
+                    <Avatar name={contact.name} image={contact.image} variant="large" containerStyle={styles.image}/>
                     <View style={styles.bottomSheetContent}>
                         <Text style={styles.contactName}>{contact.name}</Text>
                         {
@@ -120,6 +121,7 @@ export function Home() {
                             )
 
                         }
+                        <Button title="Fechar" onPress={handleBottomSheetClose}></Button>
                     </View>
                 </BottomSheet>
             }
