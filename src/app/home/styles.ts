@@ -28,7 +28,9 @@ export const styles = StyleSheet.create({
         borderRadius: 12,
     },
     contentList: {
-
+        padding: 24,
+        gap: 12,
+        paddingTop: 64,
     },
     separator: {
         width: "100%",
