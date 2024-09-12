@@ -27,4 +27,13 @@ export const styles = StyleSheet.create({
         textAlignVertical: "center",
         borderRadius: 12,
     },
+    contentList: {
+
+    },
+    separator: {
+        width: "100%",
+        height: 1,
+        backgroundColor: theme.colors.gray_300,
+        margin: 12,
+    }
 })

@@ -13,36 +13,6 @@ type SectionListDataProps = {
     data: ContactProps[] //Contato já está tipado
 }
 
-async function fetchContacts() {
-    const [contacts, setContacts] = useState<SectionListDataProps[]>([]);
-    try {
-        const { status } = await Contacts.requestPermissionsAsync();
-        if (status === Contacts.PermissionStatus.GRANTED) {
-            const { data } = await Contacts.getContactsAsync()
-            const list = data.map((contact) => ({
-                id: contact.id ?? useId(),
-                name: contact.name,
-                image: contact.image,
-            })).reduce<SectionListDataProps[]>((acc: any, item) => {
-                const firstLetter = item.name[0].toUpperCase();
-                const existingEntry = acc.find((entry: SectionListDataProps) =>
-                    (entry.title === firstLetter))
-
-                if (existingEntry) {
-                    existingEntry.data.push(item)
-                } else {
-                    acc.push({ title: firstLetter, data: [item] })
-                }
-                return acc
-            }, [])
-            setContacts(list)
-
-        }
-    } catch (error) {
-        console.log(error)
-        Alert.alert("Contatos", "Não foi possível carregar os contatos...")
-    }
-}
 
 
 export function Home() {
@@ -50,7 +20,7 @@ export function Home() {
     const [name, setName] = useState("");
     useEffect(() => {
         fetchContacts()
-    }, [])
+    }, [name])
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -61,17 +31,53 @@ export function Home() {
                 </Input>
             </View>
             <SectionList
-                sections={[{ title: "R", data: [{ id: "1", name: "Heloísa" }] }]}
+                sections={contacts}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
                     <Contact contact={item} />
                 )}
-                renderSectionHeader={({ section }) => (<Text style={styles.section}>{section.title}</Text>)}
+                renderSectionHeader={({ section }) =>
+                    (<Text style={styles.section}>{section.title}</Text>)}
                 contentContainerStyle={styles.contentList}
+                showsVerticalScrollIndicator={false}
+                SectionSeparatorComponent={() => <View style={styles.separator} />}
             />
 
         </View>
     )
+    async function fetchContacts() {
+        try {
+            const { status } = await Contacts.requestPermissionsAsync();
+            if (status === Contacts.PermissionStatus.GRANTED) {
+                const { data } = await Contacts.getContactsAsync({
+                    name,
+                    sort: "firstName",
+                })
+                const list = data.map((contact) => ({
+                    id: contact.id ?? useId(),
+                    name: contact.name,
+                    image: contact.image,
+                })).reduce<SectionListDataProps[]>((acc: any, item) => {
+                    const firstLetter = item.name[0].toUpperCase();
+                    const existingEntry = acc.find((entry: SectionListDataProps) =>
+                        (entry.title === firstLetter))
+
+                    if (existingEntry) {
+                        existingEntry.data.push(item)
+                    } else {
+                        acc.push({ title: firstLetter, data: [item] })
+                    }
+                    return acc
+                }, [])
+                setContacts(list)
+
+            }
+        } catch (error) {
+            console.log(error)
+            Alert.alert("Contatos", "Não foi possível carregar os contatos...")
+        }
+    }
+
 }
 
 
