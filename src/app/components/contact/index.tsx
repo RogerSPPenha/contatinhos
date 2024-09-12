@@ -14,7 +14,7 @@ type Props = TouchableOpacityProps & {
 
 export function Contact({contact, ...rest} : Props) {
     return <TouchableOpacity style={styles.container}>
-        <Avatar name="Pedroso" image={contact.image}/>
+        <Avatar name="Pedroso" image={contact.image} containerStyle={undefined}/>
         <Text style={styles.name}>{contact.name}</Text>
     </TouchableOpacity>
 }

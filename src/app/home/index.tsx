@@ -64,7 +64,8 @@ export function Home() {
                     }
                     return acc
                 }, [])
-                setContacts(list)
+                setContacts(list);
+                setContact(data[0]);
 
             }
         } catch (error) {
@@ -101,29 +102,29 @@ export function Home() {
             />
             {
                 contact &&
-                <BottomSheet ref={bottomSheetRef} snapPoints={[1, 284]} handleComponent={() => null}>
-                    <Avatar name={contact.name} image={contact.image} variant='large'/>
+                <BottomSheet 
+                ref={bottomSheetRef} 
+                snapPoints={[1, 284]} 
+                handleComponent={() => null}
+                backgroundStyle={styles.bottomSheet}
+                >
+                    <Avatar name={contact.name} image={contact.image} variant="large" containerStyle={undefined}/>
                     <View style={styles.bottomSheetContent}>
                         <Text style={styles.contactName}>{contact.name}</Text>
-                    </View>
-                    <View style={styles.phone}>
-                        <Feather name="phone" size={18} color={theme.colors.blue}></Feather>
-                        <Text style={styles.phoneNumber}></Text>
+                        {
+                            contact.phoneNumbers && (
+                                <View style={styles.phone}>
+                                    <Feather name="phone" size={18} color={theme.colors.gray_400}></Feather>
+                                    <Text style={styles.phoneNumber}>{contact.phoneNumbers[0].number}</Text>
+                                </View>
+                            )
+
+                        }
                     </View>
                 </BottomSheet>
             }
-            {
-                contact.phoneNumbers &&
-                <View style={styles.phone}>
-                    <Feather name="phone" size={18} color={theme.colors.blue}></Feather>
-                    <Text style={styles.phoneNumber}>{contact?.phoneNumbers[0].number}</Text>
-                </View>
-
-            }
-
         </View>
     )
-
 }
 
 
