@@ -10,7 +10,7 @@ import * as Contacts from "expo-contacts";
 
 type SectionListDataProps = {
     title: String
-    data: ContactProps //Contato já está tipado
+    data: ContactProps[] //Contato já está tipado
 }
 
 async function fetchContacts() {
