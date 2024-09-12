@@ -66,7 +66,10 @@ export const styles = StyleSheet.create({
         color: theme.colors.gray_400,
     },
     phone: {
-        
+        display: "flex",
+        flexDirection: "row",
+        gap: 5,
+        marginBottom: 25,
     }
 
 })

@@ -1,4 +1,4 @@
-import { Alert, View, SectionList, Text, } from "react-native";
+import { Alert, View, SectionList, Text} from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { styles } from "./styles";
 import { Input } from "../components/input";
@@ -7,7 +7,6 @@ import { useState, useEffect, useId, useRef } from "react";
 import { Contact, ContactProps } from "../components/contact";
 import * as Contacts from "expo-contacts";
 import BottomSheet from "@gorhom/bottom-sheet";
-import bottomSheet from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheet";
 import { Avatar } from "../components/avatar";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Button } from "../components/button";
@@ -24,7 +23,7 @@ type SectionListDataProps = {
 export function Home() {
     const [contacts, setContacts] = useState<SectionListDataProps[]>([]);
     const [name, setName] = useState("");
-    const [contact, setContact] =  useState<Contacts.Contact>()
+    const [contact, setContact] = useState<Contacts.Contact>()
 
     const bottomSheetRef = useRef<BottomSheet>(null)
 
@@ -40,7 +39,7 @@ export function Home() {
     useEffect(() => {
         fetchContacts()
     }, [name])
-    
+
     async function fetchContacts() {
         try {
             const { status } = await Contacts.requestPermissionsAsync();
@@ -103,13 +102,13 @@ export function Home() {
             />
             {
                 contact &&
-                <BottomSheet 
-                ref={bottomSheetRef} 
-                snapPoints={[1, 284]} 
-                handleComponent={() => null}
-                backgroundStyle={styles.bottomSheet}
+                <BottomSheet
+                    ref={bottomSheetRef}
+                    snapPoints={[1, 284]}
+                    handleComponent={() => null}
+                    backgroundStyle={styles.bottomSheet}
                 >
-                    <Avatar name={contact.name} image={contact.image} variant="large" containerStyle={styles.image}/>
+                    <Avatar name={contact.name} image={contact.image} variant="large" containerStyle={styles.image} />
                     <View style={styles.bottomSheetContent}>
                         <Text style={styles.contactName}>{contact.name}</Text>
                         {
